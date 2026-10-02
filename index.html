@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat Hub</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==============================
+         LOGIN / SIGN UP SCREEN
+    =============================== -->
+
+    <section id="authScreen" class="auth-screen">
+
+        <div class="auth-card">
+
+            <div class="logo">
+                ✦
+            </div>
+
+            <h1>Chat Hub</h1>
+
+            <p class="tagline">
+                Your space. Your people. Your conversations.
+            </p>
+
+
+            <!-- LOGIN -->
+
+            <div id="loginForm">
+
+                <h2>Welcome back</h2>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Email address"
+                    autocomplete="email"
+                >
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                >
+
+                <button
+                    class="main-button"
+                    onclick="login()"
+                >
+                    Enter Chat Hub
+                </button>
+
+                <p class="switch-text">
+
+                    New here?
+
+                    <button
+                        class="text-button"
+                        onclick="showSignup()"
+                    >
+                        Create an account
+                    </button>
+
+                </p>
+
+            </div>
+
+
+            <!-- SIGN UP -->
+
+            <div
+                id="signupForm"
+                style="display: none;"
+            >
+
+                <h2>Create your account</h2>
+
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Your name"
+                    autocomplete="name"
+                >
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Email address"
+                    autocomplete="email"
+                >
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                >
+
+                <button
+                    class="main-button"
+                    onclick="signup()"
+                >
+                    Create Account
+                </button>
+
+                <p class="switch-text">
+
+                    Already have an account?
+
+                    <button
+                        class="text-button"
+                        onclick="showLogin()"
+                    >
+                        Sign in
+                    </button>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         CHAT SCREEN
+    =============================== -->
+
+    <section
+        id="chatScreen"
+        class="chat-screen"
+        style="display: none;"
+    >
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-top">
+
+                <div class="brand">
+
+                    <span>✦</span>
+
+                    <strong>Chat Hub</strong>
+
+                </div>
+
+                <button
+                    class="profile-button"
+                    onclick="logout()"
+                    title="Sign out"
+                >
+                    ⇥
+                </button>
+
+            </div>
+
+
+            <!-- CURRENT USER -->
+
+            <div class="user-card">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong id="currentUserName">
+                        User
+                    </strong>
+
+                    <small>
+                        ● Available
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEARCH -->
+
+            <div class="search-container">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="searchChats"
+                    placeholder="Search conversations..."
+                    oninput="searchChats()"
+                >
+
+            </div>
+
+
+            <!-- PRIVATE CHATS -->
+
+            <div class="conversation-section">
+
+                <div class="section-title">
+                    PRIVATE
+                </div>
+
+                <div id="privateChats">
+
+                    <div class="empty-conversations">
+                        No conversations yet.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+         <!-- GROUPS -->
+
+<div class="conversation-section">
+
+    <div class="section-title">
+        GROUPS
+    </div>
+
+    <div id="groupChats">
+
+        <div class="empty-conversations">
+            No groups yet.
+        </div>
+
+    </div>
+
+    <button
+        class="new-group-button"
+        onclick="newGroup()"
+    >
+        ＋ Create group
+    </button>
+
+</div>
+            <!-- NEW CONVERSATION -->
+
+            <button
+                class="new-chat-button"
+                onclick="newConversation()"
+            >
+                ＋ New conversation
+            </button>
+
+
+            <div class="sidebar-footer">
+                Chat Hub • Connect with your people
+            </div>
+
+        </aside>
+
+
+        <!-- ==============================
+             MAIN CONVERSATION
+        =============================== -->
+
+        <main class="conversation">
+
+            <header class="conversation-header">
+
+                <div
+                    class="avatar"
+                    id="conversationAvatar"
+                >
+                    ✦
+                </div>
+
+                <div class="conversation-title">
+
+                    <h2 id="conversationName">
+                        Welcome to Chat Hub
+                    </h2>
+
+                    <span id="conversationStatus">
+                        Choose a conversation to start chatting
+                    </span>
+
+                </div>
+
+            </header>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                id="messages"
+                class="messages"
+            >
+
+                <div class="welcome-panel">
+
+                    <div class="welcome-icon">
+                        ✦
+                    </div>
+
+                    <h2>
+                        Welcome to Chat Hub
+                    </h2>
+
+                    <p>
+                        Choose a conversation or start a new one.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MESSAGE BOX -->
+
+            <div class="message-area">
+
+                <input
+                    type="text"
+                    id="messageInput"
+                    placeholder="Write a message..."
+                    onkeypress="handleEnter(event)"
+                    disabled
+                >
+
+                <button
+                    id="sendButton"
+                    onclick="sendMessage()"
+                    disabled
+                >
+                    Send ✦
+                </button>
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+    <!-- ==============================
+         SUPABASE
+    =============================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- CHAT HUB JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
